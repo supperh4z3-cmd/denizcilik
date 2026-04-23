@@ -74,6 +74,10 @@ const Fleet = () => {
 
           {/* Sağ Kısım: Detaylar */}
           <div className="fleet-details" key={activeShip.id}>
+            <div className="mobile-ship-info">
+              <h3>{activeShip.name}</h3>
+              <p>{activeShip.type}</p>
+            </div>
             <div className="ship-image-container">
               <img src={activeShip.image} alt={activeShip.name} className="ship-image" />
             </div>

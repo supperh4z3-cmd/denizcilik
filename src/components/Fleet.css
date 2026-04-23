@@ -103,6 +103,24 @@
   animation: fadeIn 0.4s ease-out;
 }
 
+.mobile-ship-info {
+  display: none;
+  text-align: center;
+}
+
+.mobile-ship-info h3 {
+  color: var(--accent);
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.mobile-ship-info p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 .ship-image-container {
   width: 100%;
   height: 350px;
@@ -176,14 +194,29 @@
   }
   .fleet-list {
     flex-direction: row;
-    overflow-x: auto;
-    padding-bottom: 1rem;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent) rgba(255,255,255,0.1);
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
   }
   .fleet-list-item {
-    min-width: 250px;
-    flex-shrink: 0;
+    min-width: auto;
+    padding: 0.75rem 1.25rem;
+    border-radius: 50px;
+    text-align: center;
+  }
+  .fleet-list-item.active::before {
+    display: none;
+  }
+  .fleet-list-item .ship-name {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+  .fleet-list-item .ship-type {
+    display: none;
+  }
+  .mobile-ship-info {
+    display: block;
+    margin-bottom: -1rem;
   }
 }
 
