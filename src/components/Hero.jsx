@@ -43,7 +43,7 @@ const Hero = () => {
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{color: 'var(--accent)'}}>
             <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
           </svg>
-          AURORA MARITIME
+          MMC - MAYA MARINE
         </div>
         
         {/* Desktop Links */}
@@ -75,7 +75,9 @@ const Hero = () => {
       </div>
 
       <section id="home" className="hero-section">
-        <div className="hero-background"></div>
+        <video className="hero-video" autoPlay loop muted playsInline>
+          <source src="/assets/video4.mp4" type="video/mp4" />
+        </video>
         <div className="hero-overlay"></div>
         
         <div className="hero-content">

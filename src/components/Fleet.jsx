@@ -4,50 +4,52 @@ import './Fleet.css';
 const fleetData = [
   {
     id: 1,
-    name: 'MV Ocean Star',
-    type: 'Supramax Bulk Carrier',
-    image: '/fleet-ship.png',
-    specs: {
-      dwat: '58,000 MT',
-      built: '2022',
-      draft: '12.8 m',
-      length: '189.9 m',
-      beam: '32.2 m',
-      flag: 'Marshall Islands'
-    }
+    name: 'M/V Genesis Cement',
+    type: 'Cement Carrier',
+    images: ['/assets/image1.jpeg', '/assets/image2.jpeg'],
+    specs: { dwat: 'TBA', built: 'TBA', draft: 'TBA', length: 'TBA', beam: 'TBA', flag: 'TBA' }
   },
   {
     id: 2,
-    name: 'MV Horizon Explorer',
-    type: 'Handysize Bulk Carrier',
-    image: '/fleet-ship.png',
-    specs: {
-      dwat: '37,500 MT',
-      built: '2019',
-      draft: '10.5 m',
-      length: '175.0 m',
-      beam: '29.4 m',
-      flag: 'Panama'
-    }
+    name: 'M/V Benigane',
+    type: 'Bulk Carrier',
+    images: ['/assets/image3.jpeg', '/assets/image4.jpeg'],
+    specs: { dwat: 'TBA', built: 'TBA', draft: 'TBA', length: 'TBA', beam: 'TBA', flag: 'TBA' }
   },
   {
     id: 3,
-    name: 'MV Eco Vanguard',
-    type: 'Ultramax Bulk Carrier',
-    image: '/fleet-ship.png',
-    specs: {
-      dwat: '63,500 MT',
-      built: '2024',
-      draft: '13.3 m',
-      length: '199.9 m',
-      beam: '32.2 m',
-      flag: 'Liberia'
-    }
+    name: 'M/V TC Glory',
+    type: 'Bulk Carrier',
+    images: ['/assets/image5.jpeg', '/assets/image6.jpeg'],
+    specs: { dwat: 'TBA', built: 'TBA', draft: 'TBA', length: 'TBA', beam: 'TBA', flag: 'TBA' }
+  },
+  {
+    id: 4,
+    name: 'M/V TC Grace',
+    type: 'Bulk Carrier',
+    images: ['/assets/image7.jpeg', '/assets/image8.jpeg'],
+    specs: { dwat: 'TBA', built: 'TBA', draft: 'TBA', length: 'TBA', beam: 'TBA', flag: 'TBA' }
+  },
+  {
+    id: 5,
+    name: 'M/V TC Victory',
+    type: 'Bulk Carrier',
+    images: ['/assets/image9.jpeg', '/assets/image1.jpeg'],
+    specs: { dwat: 'TBA', built: 'TBA', draft: 'TBA', length: 'TBA', beam: 'TBA', flag: 'TBA' }
   }
 ];
 
 const Fleet = () => {
   const [activeShip, setActiveShip] = useState(fleetData[0]);
+  const [imageIndex, setImageIndex] = useState(0);
+
+  React.useEffect(() => {
+    setImageIndex(0);
+    const interval = setInterval(() => {
+      setImageIndex((prev) => (prev + 1) % activeShip.images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [activeShip]);
 
   return (
     <section className="fleet-section" id="fleet">
@@ -79,7 +81,12 @@ const Fleet = () => {
               <p>{activeShip.type}</p>
             </div>
             <div className="ship-image-container">
-              <img src={activeShip.image} alt={activeShip.name} className="ship-image" />
+              <img src={activeShip.images[imageIndex]} alt={activeShip.name} className="ship-image" key={imageIndex} style={{animation: 'fadeIn 0.5s ease'}} />
+              <div className="slider-dots">
+                {activeShip.images.map((_, i) => (
+                  <span key={i} className={`slider-dot ${i === imageIndex ? 'active' : ''}`}></span>
+                ))}
+              </div>
             </div>
             
             <div className="specs-grid">
