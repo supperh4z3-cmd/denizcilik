@@ -1,6 +1,13 @@
 import React from 'react';
 import './Footer.css';
 
+const MMCLogo = () => (
+  <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: 'var(--accent)'}}>
+    <path d="M4 28L11 8L16 17L21 8L28 28" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M11 20L16 26L21 20" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
 const Footer = () => {
   return (
     <footer className="footer-section" id="contact">
@@ -16,10 +23,8 @@ const Footer = () => {
         
         {/* Brand */}
         <div className="footer-brand">
-          <div className="nav-logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{color: 'var(--accent)'}}>
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-            </svg>
+          <div className="nav-logo" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'white', fontWeight: 700, letterSpacing: '1px' }}>
+            <MMCLogo />
             MMC - MAYA MARINE
           </div>
           <p>

@@ -1,9 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import './Hero.css';
 
+const MMCLogo = () => (
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: 'var(--accent)'}}>
+    <path d="M4 28L11 8L16 17L21 8L28 28" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M11 20L16 26L21 20" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const slides = [
+  {
+    id: 1,
+    video: '/assets/video4.mp4',
+    title: 'Dünyanızı Hassasiyet ve Özenle Yönlendiriyoruz.',
+    subtitle: 'Küresel denizcilik çözümlerini zamanında ve mükemmel teslimatla sunan, yılların getirdiği tecrübeyle sürdürülebilirliği birleştiren köklü yapı.'
+  },
+  {
+    id: 2,
+    video: '/assets/video1.mp4',
+    title: 'Denizlerde Güçlü, Limanlarda Güvenilir.',
+    subtitle: 'Kıtaları birbirine bağlayan geniş operasyon ağımızla ticareti durmaksızın geleceğe taşıyoruz.'
+  },
+  {
+    id: 3,
+    video: '/assets/video2.mp4',
+    title: 'Sürdürülebilir Bir Gelecek İçin Seyirdeyiz.',
+    subtitle: 'Yenilikçi teknolojilerle donatılmış modern filomuz, karbon ayak izini azaltarak çevre dostu taşımacılık sunuyor.'
+  },
+  {
+    id: 4,
+    video: '/assets/video3.mp4',
+    title: 'Uluslararası Sular, Yerel Uzmanlık.',
+    subtitle: 'Gemi kiralama, teknik yönetim ve acentelik hizmetlerinde şeffaf ve kusursuz operasyon garantisi.'
+  }
+];
+
 const Hero = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 8000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,9 +82,7 @@ const Hero = () => {
     <>
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-logo">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{color: 'var(--accent)'}}>
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-          </svg>
+          <MMCLogo />
           MMC - MAYA MARINE
         </div>
         
@@ -75,21 +115,30 @@ const Hero = () => {
       </div>
 
       <section id="home" className="hero-section">
-        <video className="hero-video" autoPlay loop muted playsInline>
-          <source src="/assets/video4.mp4" type="video/mp4" />
-        </video>
+        {slides.map((slide, index) => (
+          <video 
+            key={slide.id}
+            className={`hero-video ${index === currentSlide ? 'active' : ''}`} 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+          >
+            <source src={slide.video} type="video/mp4" />
+          </video>
+        ))}
         <div className="hero-overlay"></div>
         
-        <div className="hero-content">
-          <h1 className="hero-title">Dünyanızı Hassasiyet ve Özenle Yönlendiriyoruz.</h1>
-          <p className="hero-subtitle">
-            Küresel denizcilik çözümlerini zamanında ve mükemmel teslimatla sunan, yılların getirdiği tecrübeyle sürdürülebilirliği birleştiren köklü yapı.
-          </p>
-          <div className="hero-cta-group">
-            <button className="btn btn-primary" onClick={() => document.getElementById('fleet').scrollIntoView({ behavior: 'smooth' })}>Filomuzu Keşfedin</button>
-            <button className="btn btn-ghost" onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })}>Hizmetlerimiz</button>
+        {slides.map((slide, index) => (
+          <div key={`content-${slide.id}`} className={`hero-content ${index === currentSlide ? 'active' : ''}`}>
+            <h1 className="hero-title">{slide.title}</h1>
+            <p className="hero-subtitle">{slide.subtitle}</p>
+            <div className="hero-cta-group">
+              <button className="btn btn-primary" onClick={() => document.getElementById('fleet').scrollIntoView({ behavior: 'smooth' })}>Filomuzu Keşfedin</button>
+              <button className="btn btn-ghost" onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })}>Hizmetlerimiz</button>
+            </div>
           </div>
-        </div>
+        ))}
       </section>
     </>
   );
